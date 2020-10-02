@@ -30,7 +30,7 @@ public class GridManagerCode : MonoBehaviour
             for (int runnerY = -collems; runnerY < collems; runnerY++)
             {
                 GameObject tile = (GameObject)Instantiate(blankSpace, transform);
-                tile.name = "tempTile" + counter;
+                tile.name = "TempTile " + "(" + counter + ")";
                 counter++;
                 float xPos = runnerY * tileSize + offset;
                 float yPos = runnerX * -tileSize + offset -1;
@@ -51,14 +51,14 @@ public class GridManagerCode : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
 
-            if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+            if (hit && hit.collider.gameObject.name.Contains("TempTile"))
             {
                 print(hit.collider.name);
 
                 Vector3 center = hit.collider.gameObject.transform.position;
                 Destroy(GameObject.Find(hit.collider.gameObject.name));
                 GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                newTile.name = "newTile" + newCounter;
+                newTile.name = "newTile " + "(" + newCounter + ")";
                 newCounter++;
                 newTile.transform.position = center;
 
