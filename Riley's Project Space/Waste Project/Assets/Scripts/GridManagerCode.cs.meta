@@ -3,7 +3,13 @@ guid: 271876cf87390094d9724788a238ae03
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tileTexture: {fileID: 3791228669306167164, guid: 88ba6c3656283654a818ab8bf80d0b51,
+      type: 3}
+  - blankSpace: {fileID: 8972657420635511379, guid: 6a820d0157c3e4b4780387dd5902692b,
+      type: 3}
+  - circle: {fileID: 4528553362110295142, guid: a02db41303bff50438a57e24861f413b,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
