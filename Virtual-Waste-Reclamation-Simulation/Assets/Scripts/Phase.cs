@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HealthBar : MonoBehaviour
+public class Phase : MonoBehaviour
 {
-    public TextMeshProUGUI health;
-    private int counter = 5;
+    public TextMeshProUGUI phase;
     // Start is called before the first frame update
     void Start()
     {
-        health.faceColor = (Color.black);
+        phase.text = "Build";
     }
 
     // Update is called once per frame
     void Update()
     {
-        health.text = counter.ToString("D2");
+        
     }
 
-    public void LoseHealth(){
-        counter--;
+    public void SwitchPhase(){
+        phase.text = "Work";
     }
 }

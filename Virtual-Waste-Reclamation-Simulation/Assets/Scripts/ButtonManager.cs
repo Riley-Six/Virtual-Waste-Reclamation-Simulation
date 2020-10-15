@@ -14,6 +14,7 @@ public class ButtonManager : MonoBehaviour
     //public Sprite splitSprite;
     public GameObject info;
     private Info infoComponent;
+    private Money moneyComponent;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,12 +23,17 @@ public class ButtonManager : MonoBehaviour
         sortInfo = "up";
         binInfo = "Sponsored by Raid Shadow Legends";
         infoComponent = info.GetComponent<Info>();
+        moneyComponent = info.GetComponentInChildren<Money>();
     }
 
     public void convClick(){
         infoComponent.changeInfo(convInfo, Color.cyan);
         infoComponent.changeSprite(convSprite);
         GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("conveyer");
+        if (moneyComponent.GetFunds() >= 10)
+        {
+            moneyComponent.Bought(10);
+        }
     }
     public void splitClick(){
         infoComponent.changeInfo(splitInfo, Color.green);
@@ -37,10 +43,17 @@ public class ButtonManager : MonoBehaviour
     public void sortClick(){
         infoComponent.changeInfo(sortInfo, Color.blue);
         infoComponent.changeSprite(sortSprite);
+        if (moneyComponent.GetFunds() >= 30)
+        {
+            moneyComponent.Bought(30);
+        }
     }
 
     public void binClick(){
         infoComponent.changeInfo(binInfo, Color.red);
         infoComponent.changeSprite(binSprite);
+        if(moneyComponent.GetFunds() >= 50){
+            moneyComponent.Bought(50);
+        }
     }
 }
