@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class ButtonManager : MonoBehaviour
     public GameObject info;
     private Info infoComponent;
     private Money moneyComponent;
+    private Phase phaseComponent;
+    private TrashInfo trashComponent;
+    public GameObject finish;
+    public GameObject trivia;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +29,8 @@ public class ButtonManager : MonoBehaviour
         binInfo = "Sponsored by Raid Shadow Legends";
         infoComponent = info.GetComponent<Info>();
         moneyComponent = info.GetComponentInChildren<Money>();
+        phaseComponent = info.GetComponentInChildren<Phase>();
+        trashComponent = info.GetComponentInChildren<TrashInfo>();
     }
 
     public void convClick(){
@@ -55,5 +62,16 @@ public class ButtonManager : MonoBehaviour
         if(moneyComponent.GetFunds() >= 50){
             moneyComponent.Bought(50);
         }
+    }
+
+    public void FinishClick(){
+        trashComponent.Start(25);
+        phaseComponent.SwitchPhase();
+        trivia.GetComponent<Trivia>().Activate();
+        finish.SetActive(false);
+    }
+
+    public void OkClick(){
+        trivia.GetComponent<Trivia>().DeActivate();
     }
 }

@@ -10,17 +10,23 @@ public class TrashInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        trash.text = "Trash Left: " + counter;
+        trash.text = "Trash Left: ";
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void Start(int amount){
+        counter = amount;
         trash.text = "Trash Left: " + counter;
     }
 
     public void Spawned(){
         counter--;
+        trash.text = "Trash Left: " + counter;
     }
 
     public int GetTrash(){

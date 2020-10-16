@@ -15,9 +15,8 @@ public class Phase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
+    }
     public void SwitchPhase(){
         phase.text = "Work";
     }
