@@ -12,7 +12,10 @@ public class GridManagerCode : MonoBehaviour
     public GameObject tileTexture;
     public GameObject blankSpace;
     public GameObject circle;
+    public List<List<Vector2>> paths; //this is a 2D array so as to support multiple paths
+    public Dictionary<Vector2, int> findPath; //use it to find out which path
     private int newCounter = 0;
+    private int endCounter = 0;
     private List<GameObject> grid;
     //private List<List<GameTile>> grid;
 
@@ -64,17 +67,26 @@ public class GridManagerCode : MonoBehaviour
                 if (first) {
                     tile = (GameObject)Instantiate(circle, transform);
                     tile.name = "OpenTile " + "(" + counter + ")";
+                    //fancy instantiation of paths
+                    paths = new List<List<Vector2>>();
+                    paths.Add(new List<Vector2>());
+                    paths[0].Add(new Vector2 (runnerY * tileSize + offset, runnerX * -tileSize + offset - 1));
+                    //fancy instantiation of paths
+                    findPath = new Dictionary<Vector2, int>();
+                    findPath.Add(paths[0][0], 0);
+                    tile.transform.position = paths[0][0];
                     first = false;
                 }
                 else {
                     tile = (GameObject)Instantiate(blankSpace, transform);
                     tile.name = "BlockedTile " + "(" + counter + ")";
+                    float xPos = runnerY * tileSize + offset;
+                    float yPos = runnerX * -tileSize + offset - 1;
+                    tile.transform.position = new Vector2(xPos, yPos);
                 }
                 
                 counter++;
-                float xPos = runnerY * tileSize + offset;
-                float yPos = runnerX * -tileSize + offset - 1;
-                tile.transform.position = new Vector2(xPos, yPos);
+                
                 //Instantiate(tile);
                 //string outing = xPos.ToString() + "-" + yPos.ToString();
                 //Debug.Log(outing);
@@ -101,7 +113,7 @@ public class GridManagerCode : MonoBehaviour
             if (hit && hit.collider.gameObject.name.Contains("OpenTile"))
             {
                     
-                Vector2 center = hit.point;
+                Vector2 center = GameObject.Find(hit.collider.gameObject.name).transform.position;
                 Ray[] UpDownLeftRight = {
                     new Ray(new Vector3(ray.origin.x, ray.origin.y + tileSize, ray.origin.z), ray.direction),
                     new Ray(new Vector3(ray.origin.x, ray.origin.y - tileSize, ray.origin.z), ray.direction),
@@ -139,9 +151,12 @@ public class GridManagerCode : MonoBehaviour
 
                         Destroy(GameObject.Find(hit2.collider.gameObject.name));
                         GameObject newTile2 = (GameObject)Instantiate(tileTexture, transform);
-                        newTile2.name = "FilledTileConduit " + "(" + newCounter + ")";
+                        newTile2.name = "FilledTileConduit " + "(" + endCounter + ")";
+                        //findPath.Add();
+                        paths[findPath[newPos]].Add(center);
+                        findPath.Add(center,findPath[newPos]);
 
-                        newCounter++;
+                        endCounter++;
                         newTile2.transform.position = currentTile2.transform.position;
 
                         Ray[] UpDownLeftRight2 = {

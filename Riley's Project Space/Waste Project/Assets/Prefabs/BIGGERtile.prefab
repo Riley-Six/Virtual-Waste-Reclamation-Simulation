@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 627054014192252806}
   - component: {fileID: 7429514996265971110}
   - component: {fileID: -1997324192570635393}
+  - component: {fileID: -4094965632565629188}
   m_Layer: 0
   m_Name: BIGGERtile
   m_TagString: Untagged
@@ -108,3 +109,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-4094965632565629188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791228669306167164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2282cfa85b4a34cb1a4bfb4a5c8d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
