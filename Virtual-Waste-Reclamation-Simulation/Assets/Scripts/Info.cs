@@ -16,12 +16,6 @@ public class Info : MonoBehaviour
         image = GetComponentInChildren<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void changeInfo(string info)
     {
         this.info.text = info;

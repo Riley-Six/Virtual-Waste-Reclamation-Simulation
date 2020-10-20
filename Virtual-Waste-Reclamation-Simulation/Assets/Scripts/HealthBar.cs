@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public TextMeshProUGUI health;
-    private int counter = 5;
+    private int counter = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +21,16 @@ public class HealthBar : MonoBehaviour
 
     public void LoseHealth(){
         counter--;
+    }
+
+    public void Restart()
+    {
+        counter = 10;
+    }
+
+    public int GetHealth()
+    {
+        int temp = counter;
+        return temp;
     }
 }

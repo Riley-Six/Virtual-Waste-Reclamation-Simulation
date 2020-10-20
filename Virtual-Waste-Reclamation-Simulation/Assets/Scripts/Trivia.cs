@@ -1,33 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
 public class Trivia : MonoBehaviour
 {
-    private bool shown = false;
     private ArrayList trivia = new ArrayList();
     public TextMeshProUGUI TriviaInfo;
     public GameObject button;
+    public string filename;
     // Start is called before the first frame update
     void Start()
     {
         Read();
         TriviaInfo.text = "";
-        button.SetActive(false);
-        DeActivate();
+        Display(0);
+        //DeActivate();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Activate(){
+    public void Activate(int num){
         gameObject.SetActive(true);
         button.SetActive(true);
-        Display(4);
+        Display(num);
     }
 
     public void DeActivate(){
@@ -49,16 +44,15 @@ public class Trivia : MonoBehaviour
     }
 
     private void Read() {
-        string t1, t2, t3, t4, t5;
-        t1 = "Hello";
-        t2 = "Heyyo";
-        t3 = "Ohayo";
-        t4 = "Konbanwa";
-        t5 = "Kyoo wa kochi ga ii desu kana";
-        trivia.Add(t1);
-        trivia.Add(t2);
-        trivia.Add(t3);
-        trivia.Add(t4);
-        trivia.Add(t5);
+        string fileToParse = string.Format(Application.dataPath + "/Resources/" + filename + ".txt");
+        using (StreamReader sr = new StreamReader(fileToParse))
+        {
+            string line = "";
+
+            while((line = sr.ReadLine()) != null){
+                trivia.Add(line);
+            }
+            sr.Close();
+        }
     }
  }

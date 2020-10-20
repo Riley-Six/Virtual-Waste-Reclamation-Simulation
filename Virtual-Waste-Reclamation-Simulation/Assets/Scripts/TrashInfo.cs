@@ -12,13 +12,6 @@ public class TrashInfo : MonoBehaviour
     {
         trash.text = "Trash Left: ";
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Start(int amount){
         counter = amount;
         trash.text = "Trash Left: " + counter;

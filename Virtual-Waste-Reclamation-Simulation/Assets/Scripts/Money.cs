@@ -20,8 +20,26 @@ public class Money : MonoBehaviour
         money.text = funds.ToString();
     }
 
-    public void Bought(int cost){
-        funds -= cost;
+    public void Bought(string item){
+        switch (item)
+        {
+            case "Conveyer":
+                funds -= 10;
+                break;
+            case "Bin":
+                funds -= 20;
+                break;
+            case "Sorter":
+                funds -= 50;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Earned(int gain)
+    {
+        funds += gain;
     }
 
     public int GetFunds(){
