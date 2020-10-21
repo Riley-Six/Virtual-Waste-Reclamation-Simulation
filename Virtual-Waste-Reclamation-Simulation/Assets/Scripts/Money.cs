@@ -29,7 +29,7 @@ public class Money : MonoBehaviour
             case "Bin":
                 funds -= 20;
                 break;
-            case "Sorter":
+            case "Splitter":
                 funds -= 50;
                 break;
             default:

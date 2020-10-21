@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     private string binInfo;
-    private string sortInfo;
+    //private string sortInfo;
     private string splitInfo;
     private string convInfo;
     private Info infoComponent;
@@ -14,8 +14,9 @@ public class ButtonManager : MonoBehaviour
     private TrashInfo trashComponent;
     private BinSelection bComponent;
     public Sprite convSprite;
-    public Sprite sortSprite;
+    //public Sprite sortSprite;
     public Sprite binSprite;
+    public Sprite splitSprite;
     public GameObject BinSelection;
     public GameObject info;
     public GameObject finish;
@@ -32,8 +33,7 @@ public class ButtonManager : MonoBehaviour
     void Start()
     {
         convInfo = "Cost: $10\nThe Conveyer moves trash.";
-        splitInfo = "whats";
-        sortInfo = "Cost: $50\nThe sorter separates trash into 2 piles";
+        splitInfo = "Cost: $50\nThe splitter sorts trash";
         binInfo = "Cost: $20\nThe bin takes care of trash, recycling, and nature.";
         infoComponent = info.GetComponent<Info>();
         phaseComponent = info.GetComponentInChildren<Phase>();
@@ -48,19 +48,13 @@ public class ButtonManager : MonoBehaviour
 
     }
     public void splitClick(){
-        infoComponent.changeInfo(splitInfo, Color.green);
-        //infoComponent.changeSprite(splitSprite);
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("conveyer");
-    }
-
-    public void sortClick(){
-        infoComponent.changeInfo(sortInfo, Color.blue);
-        infoComponent.changeSprite(sortSprite);
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Sorter");
+        infoComponent.changeInfo(splitInfo, Color.black);
+        infoComponent.changeSprite(splitSprite);
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Splitter");
     }
 
     public void binClick(){
-        infoComponent.changeInfo(binInfo, Color.red);
+        infoComponent.changeInfo(binInfo, Color.yellow);
         infoComponent.changeSprite(binSprite);
         bComponent.Activate();
         GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Bin");
