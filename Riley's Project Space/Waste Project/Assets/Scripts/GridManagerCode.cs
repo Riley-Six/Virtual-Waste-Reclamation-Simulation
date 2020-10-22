@@ -14,9 +14,11 @@ public class GridManagerCode : MonoBehaviour
     public GameObject circle;
     public List<List<Vector2>> paths; //this is a 2D array so as to support multiple paths
     public Dictionary<Vector2, int> findPath; //use it to find out which path
+    public Dictionary<float, int> findX;
+    public Dictionary<float, int> findY;
     private int newCounter = 0;
     private int endCounter = 0;
-    private List<GameObject> grid;
+    private List<List<GameObject>> grid;
     //private List<List<GameTile>> grid;
 
     public class Something {
@@ -50,39 +52,52 @@ public class GridManagerCode : MonoBehaviour
         //Instantiate(tileTexture);
         var counter = 0;
 
-        grid = new List<GameObject>();
+        grid = new List<List<GameObject>>();
+        findX = new Dictionary<float, int>();
+        findY = new Dictionary<float, int>();
         //grid = new List<List<GameTile>>();
 
 
-        bool first = true;
+        bool firstTile = true;
 
-        for (int runnerX = -rows; runnerX < rows; runnerX++)
+        float xPos, yPos;
+
+        for (int runnerX = 0; runnerX < rows * 2; runnerX++)
         {
             //List<GameTile> temp = new List<GameTile>();
+            grid.Add(new List<GameObject>());
+
             GameObject temp = new GameObject();
 
-            for (int runnerY = -columns; runnerY < columns; runnerY++)
+            xPos = (runnerX * -tileSize + offset - 1 + rows) * -1;
+
+            findX.Add(xPos,runnerX);
+
+            for (int runnerY = 0; runnerY < columns * 2; runnerY++)
             {
-                GameObject tile;
-                if (first) {
-                    tile = (GameObject)Instantiate(circle, transform);
-                    tile.name = "OpenTile " + "(" + counter + ")";
+                //GameObject tile;
+
+                yPos = (runnerY * tileSize + offset - columns) * -1;
+
+                grid.Add(new List<GameObject>());
+                if (firstTile) {
+                    grid[0].Add((GameObject)Instantiate(circle, transform));
+                    grid[0][0].name = "OpenTile " + "(" + counter + ")";
                     //fancy instantiation of paths
                     paths = new List<List<Vector2>>();
                     paths.Add(new List<Vector2>());
-                    paths[0].Add(new Vector2 (runnerY * tileSize + offset, runnerX * -tileSize + offset - 1));
+                    paths[0].Add(new Vector2 (xPos, yPos));
                     //fancy instantiation of paths
                     findPath = new Dictionary<Vector2, int>();
                     findPath.Add(paths[0][0], 0);
-                    tile.transform.position = paths[0][0];
-                    first = false;
+                    grid[0][0].transform.position = paths[0][0];
+                    //grid[0][0] = tile;
+                    firstTile = false;
                 }
                 else {
-                    tile = (GameObject)Instantiate(blankSpace, transform);
-                    tile.name = "BlockedTile " + "(" + counter + ")";
-                    float xPos = runnerY * tileSize + offset;
-                    float yPos = runnerX * -tileSize + offset - 1;
-                    tile.transform.position = new Vector2(xPos, yPos);
+                    grid[runnerX].Add((GameObject)Instantiate(blankSpace, transform));
+                    grid[runnerX][runnerY].name = "BlockedTile " + "(" + counter + ")";
+                    grid[runnerX][runnerY].transform.position = new Vector2(xPos, yPos);
                 }
                 
                 counter++;
@@ -91,7 +106,7 @@ public class GridManagerCode : MonoBehaviour
                 //string outing = xPos.ToString() + "-" + yPos.ToString();
                 //Debug.Log(outing);
 
-                grid.Add(temp);
+                //grid.Add(temp);
                 //temp.Add(new GameTile(runnerX,runnerY,tile));
             }
 
@@ -121,6 +136,15 @@ public class GridManagerCode : MonoBehaviour
                     new Ray(new Vector3(ray.origin.x + tileSize, ray.origin.y, ray.origin.z), ray.direction),
                 };
 
+                //If there is no filledTileEnd around it, turn into a blocked tile.
+                /* (Ray i in UpDownLeftRight) {
+                    RaycastHit2D hit2 = Physics2D.Raycast(i.origin, i.direction);
+                    if (!hit2) {
+                        continue;
+                    }
+
+                }*/
+
                 print(hit.collider.name);
 
                 GameObject currentTile = GameObject.Find(hit.collider.gameObject.name);
@@ -136,8 +160,7 @@ public class GridManagerCode : MonoBehaviour
 
                     GameObject currentTile2 = GameObject.Find(hit2.collider.gameObject.name);
 
-                    if (hit2.collider.gameObject.name.Contains("BlockedTile"))
-                    {
+                    if (hit2.collider.gameObject.name.Contains("BlockedTile")) {
                         Destroy(GameObject.Find(hit2.collider.gameObject.name));
                         GameObject newTile2 = (GameObject)Instantiate(circle, transform);
                         newTile2.name = "OpenTile " + "(" + newCounter + ")";
@@ -170,7 +193,7 @@ public class GridManagerCode : MonoBehaviour
                         {
                             RaycastHit2D hit3 = Physics2D.Raycast(j.origin, i.direction);
 
-                            if (!hit3 || hit3.transform.position.Equals(hit.collider.gameObject.transform.position) || hit3.collider.gameObject.name.Contains("FilledTile"))
+                            if (!hit3 || hit3.transform.position.Equals(hit.collider.gameObject.transform.position) || hit3.collider.gameObject.name.Contains("FilledTileConduit"))
                                 continue;
 
                             GameObject currentTile3 = GameObject.Find(hit3.collider.gameObject.name);
