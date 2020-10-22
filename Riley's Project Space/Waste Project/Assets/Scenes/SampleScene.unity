@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271876cf87390094d9724788a238ae03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rows: 12
-  columns: 8
+  rows: 24
+  columns: 16
   tileSize: 1
   offset: 0.5
   tileTexture: {fileID: 3791228669306167164, guid: 88ba6c3656283654a818ab8bf80d0b51,
