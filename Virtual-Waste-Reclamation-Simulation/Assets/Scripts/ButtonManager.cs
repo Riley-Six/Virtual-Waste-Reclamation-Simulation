@@ -57,7 +57,7 @@ public class ButtonManager : MonoBehaviour
         infoComponent.changeInfo(binInfo, Color.yellow);
         infoComponent.changeSprite(binSprite);
         bComponent.Activate();
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Bin");
+        
     }
 
     public void FinishClick(){
@@ -71,6 +71,21 @@ public class ButtonManager : MonoBehaviour
         trivia.GetComponent<Trivia>().DeActivate();
     }
 
+    public void RecycleClick()
+    {
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Recycle");
+        //bComponent.SetType("Recycle");
+        bComponent.DeActivate();
+    }
+
+    /*public void TrashClick()
+    {
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Trash");
+        //bComponent.SetType("Trash");
+        bComponent.DeActivate();
+    }*/
+
+    
     public void JuiceClick(){
         bComponent.SetType("Juice");
         bComponent.DeActivate();
@@ -89,7 +104,8 @@ public class ButtonManager : MonoBehaviour
     }
     public void TrashClick()
     {
-        bComponent.SetType("Trash");
+        //bComponent.SetType("Trash");    
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Trash");
         bComponent.DeActivate();
     }
     public void GlassClick()

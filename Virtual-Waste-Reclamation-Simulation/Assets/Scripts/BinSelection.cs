@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class BinSelection : MonoBehaviour
 {
-    public GameObject glass;
-    public GameObject juice;
-    public GameObject plastic;
+    //public GameObject glass;
+    //public GameObject juice;
+    //public GameObject plastic;
     public GameObject trash;
-    public GameObject wrapper;
-    public GameObject yard;
-    public GameObject aluminum;
-    public GameObject cardboard;
+    //public GameObject wrapper;
+    //public GameObject yard;
+    //public GameObject aluminum;
+    //public GameObject cardboard;
     private string type = "None";
     // Start is called before the first frame update
     void Start()
@@ -29,27 +29,28 @@ public class BinSelection : MonoBehaviour
     public void Activate()
     {
         gameObject.SetActive(true);
-        glass.SetActive(true);
-        juice.SetActive(true);
-        yard.SetActive(true);
-        wrapper.SetActive(true);
-        aluminum.SetActive(true);
+        //glass.SetActive(true);
+        //juice.SetActive(true);
+        //yard.SetActive(true);
+        //wrapper.SetActive(true);
+        //aluminum.SetActive(true);
         trash.SetActive(true);
-        plastic.SetActive(true);
-        cardboard.SetActive(true);
+        //plastic.SetActive(true);
+        //cardboard.SetActive(true);
         Debug.Log(type);
     }
 
     public void DeActivate()
     {
+        /*
         glass.SetActive(false);
         juice.SetActive(false);
         yard.SetActive(false);
         wrapper.SetActive(false);
         aluminum.SetActive(false);
-        trash.SetActive(false);
-        plastic.SetActive(false);
-        cardboard.SetActive(false);
+        */trash.SetActive(false);
+        //plastic.SetActive(false);
+        //cardboard.SetActive(false);
         gameObject.SetActive(false);
     }
 
