@@ -9,6 +9,8 @@ public class ColorSwapper : MonoBehaviour{
     Color[] originalColors;
     SpriteRenderer mSpriteRenderer;
 
+
+
     void Awake()
     {
         mSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -66,5 +68,18 @@ public class ColorSwapper : MonoBehaviour{
 
         replacedTexture.Apply();
 
+
     }
+
+    void Update()
+    {
+        //float step = 0.5f * Time.deltaTime;
+        ///Vector2 tempSpot = new Vector2(4.5f, 4.5f);
+        //this.transform.position = Vector2.MoveTowards(this.transform.position, tempSpot, step);
+
+
+    }
+
+
+   
 }
