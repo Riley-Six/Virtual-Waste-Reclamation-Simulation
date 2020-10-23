@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Mm]emoryCaptures/
+Virtual-Waste-Reclamation-Simulation/[Ll]ibrary/
+Virtual-Waste-Reclamation-Simulation/[Tt]emp/
+Virtual-Waste-Reclamation-Simulation/[Oo]bj/
+Virtual-Waste-Reclamation-Simulation/[Bb]uild/
+Virtual-Waste-Reclamation-Simulation/[Bb]uilds/
+Virtual-Waste-Reclamation-Simulation/[Ll]ogs/
+Virtual-Waste-Reclamation-Simulation/[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
