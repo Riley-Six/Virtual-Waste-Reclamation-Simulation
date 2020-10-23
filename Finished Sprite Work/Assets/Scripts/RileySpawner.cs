@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Spawner : MonoBehaviour
+public class RileySpawner : MonoBehaviour
 {
     private GameObject[] Trash;
     //Trash Kids

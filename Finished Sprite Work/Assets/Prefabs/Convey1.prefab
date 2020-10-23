@@ -143,4 +143,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.01
   angle: 90
-  direction: Right

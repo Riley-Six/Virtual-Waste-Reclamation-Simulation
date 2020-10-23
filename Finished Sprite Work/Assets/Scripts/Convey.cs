@@ -120,8 +120,8 @@ public class Convey : MonoBehaviour
         //Debug.Log(Mathf.Round(other.gameObject.transform.position.x * 2) / 2);
         //Debug.Log(Mathf.Round(other.gameObject.transform.position.y * 2) / 2);
 
-        Vector2 center = new Vector2(Mathf.Round(other.gameObject.transform.position.x * 2) / 2, Mathf.Round(other.gameObject.transform.position.y * 2) / 2);
-        other.gameObject.transform.position = center;
+        //Vector2 center = new Vector2(Mathf.Round(other.gameObject.transform.position.x * 2) / 2, Mathf.Round(other.gameObject.transform.position.y * 2) / 2);
+        //other.gameObject.transform.position = center;
 
 
     }

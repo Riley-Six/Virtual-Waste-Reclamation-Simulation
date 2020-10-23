@@ -13,6 +13,7 @@ public class NewGridRiley : MonoBehaviour
     public GameObject tileTexture;
     public GameObject blankSpace;
     public GameObject StartTile;
+    public GameObject Sorter;
     public GameObject Dump;
     private int newCounter = 0;
     //private GameObject<List<List>> gridCoordinates;
@@ -152,6 +153,25 @@ public class NewGridRiley : MonoBehaviour
             } else if (hit && hit.collider.gameObject.name.Contains("Convey (Left)"))
             {
                 print(hit.collider.name);
+                //conveyRotate();
+                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
+                StartCoroutine(conveyRotate());
+                Vector3 center = hit.collider.gameObject.transform.position;
+                Destroy(hit.collider.gameObject);
+                GameObject newTile = (GameObject)Instantiate(Sorter, transform);
+                //newTile.name = "Convey (" + newCounter + ")";
+                //newTile.Direction("Up");
+                newTile.name = "Sorter" + newCounter;
+                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+                //newTile.name = "newTile";
+                newCounter++;
+                newTile.transform.position = center;
+                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+
+
+            } else if (hit && hit.collider.gameObject.name.Contains("Sorter"))
+            {
+                print(hit.collider.name);
 
                 Vector3 center = hit.collider.gameObject.transform.position;
                 Destroy(hit.collider.gameObject);
@@ -160,7 +180,7 @@ public class NewGridRiley : MonoBehaviour
                 newCounter++;
                 newTile.transform.position = center;
 
-            }
+            } 
 
 
             

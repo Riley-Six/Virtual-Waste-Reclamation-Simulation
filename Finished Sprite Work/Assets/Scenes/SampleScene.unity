@@ -274,6 +274,7 @@ MonoBehaviour:
     type: 3}
   StartTile: {fileID: 4383378137878998498, guid: cbe33e7adc8509d4db82fb6eb2a18584,
     type: 3}
+  Sorter: {fileID: 7682604250801229346, guid: c0d06d872879be244b4f7cdaf9186dbd, type: 3}
   Dump: {fileID: 1897872848214145029, guid: 558a76102e750ce4a8bdd6aeb3ad3331, type: 3}
 --- !u!4 &1144032212
 Transform:
