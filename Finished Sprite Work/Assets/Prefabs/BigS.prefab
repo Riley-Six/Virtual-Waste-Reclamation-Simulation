@@ -106,9 +106,9 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 1
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.45}
+  m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!114 &541993434792277559
 MonoBehaviour:
@@ -132,7 +132,7 @@ MonoBehaviour:
   Bag: {fileID: 3742078545620020933, guid: f743e1a8aba4a4a49bcb36232322e246, type: 3}
   GreenWaste: {fileID: 1893062211362074267, guid: 3e59b02dc27ad8a45b7c4b751fd2fd0a,
     type: 3}
-  delay: 10
+  delay: 5
 --- !u!114 &-1374415218958001464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.01
-  direction: Down
+  angle: 0

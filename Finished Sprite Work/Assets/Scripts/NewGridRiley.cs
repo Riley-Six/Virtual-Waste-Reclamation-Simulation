@@ -76,10 +76,14 @@ public class NewGridRiley : MonoBehaviour
                 Vector3 center = hit.collider.gameObject.transform.position;
                 Destroy(hit.collider.gameObject);
                 GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                newTile.name = "Convey (" + newCounter + ")";
+                //newTile.name = "Convey (" + newCounter + ")";
+                //newTile.Direction("Up");
+                newTile.name = "Convey (Up)" + newCounter;
+                GameObject.Find(newTile.name).SendMessage("Direction", "Up");
                 //newTile.name = "newTile";
                 newCounter++;
                 newTile.transform.position = center;
+                GameObject.Find(newTile.name).SendMessage("Direction", "Up");
 
                 //conveyRotate();
                 /*
@@ -89,9 +93,63 @@ public class NewGridRiley : MonoBehaviour
                 }
                 */
                 //newTile.transform.Rotate(Vector3.forward*90*Random.Range(0, 4));
-            }
+            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Up)")){
+                print(hit.collider.name);
+                //conveyRotate();
+                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
+                StartCoroutine(conveyRotate());
+                Vector3 center = hit.collider.gameObject.transform.position;
+                Destroy(hit.collider.gameObject);
+                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                //newTile.name = "Convey (" + newCounter + ")";
+                //newTile.Direction("Up");
+                newTile.name = "Convey (Right)" + newCounter;
+                //GameObject.Find(newTile.name).SendMessage("Direction", "Right");
+                //newTile.name = "newTile";
+                newCounter++;
+                newTile.transform.position = center;
+                GameObject.Find(newTile.name).SendMessage("Direction", "Right");
 
-            if (hit && hit.collider.gameObject.name.Contains("Convey"))
+
+            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Right)"))
+            {
+                print(hit.collider.name);
+                //conveyRotate();
+                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
+                StartCoroutine(conveyRotate());
+                Vector3 center = hit.collider.gameObject.transform.position;
+                Destroy(hit.collider.gameObject);
+                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                //newTile.name = "Convey (" + newCounter + ")";
+                //newTile.Direction("Up");
+                newTile.name = "Convey (Down)" + newCounter;
+                //GameObject.Find(newTile.name).SendMessage("Direction", "Down");
+                //newTile.name = "newTile";
+                newCounter++;
+                newTile.transform.position = center;
+                GameObject.Find(newTile.name).SendMessage("Direction", "Down");
+
+
+            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Down)"))
+            {
+                print(hit.collider.name);
+                //conveyRotate();
+                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
+                StartCoroutine(conveyRotate());
+                Vector3 center = hit.collider.gameObject.transform.position;
+                Destroy(hit.collider.gameObject);
+                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                //newTile.name = "Convey (" + newCounter + ")";
+                //newTile.Direction("Up");
+                newTile.name = "Convey (Left)" + newCounter;
+                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+                //newTile.name = "newTile";
+                newCounter++;
+                newTile.transform.position = center;
+                GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+
+
+            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Left)"))
             {
                 print(hit.collider.name);
 

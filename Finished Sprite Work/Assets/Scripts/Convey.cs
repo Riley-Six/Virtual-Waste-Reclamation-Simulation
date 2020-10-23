@@ -8,7 +8,7 @@ public class Convey : MonoBehaviour
     public float angle;
     Vector2 oldSpot;
     Vector2 NewSpot;
-    public string direction;
+    private string direction = "Down";
 
 
 
@@ -71,6 +71,47 @@ public class Convey : MonoBehaviour
 
     }
 
+    void Direction(string word)
+    {
+        //Debug.Log(this.gameObject.name + " INNNNNNN ");
+        if (word == "Up")
+        {
+            direction = "Up";
+            //Debug.Log(this.gameObject.name + " INNNNNNN  In In");
+            //this.gameObject.transform.position = this.gameObject.transform.position + Vector3.up * speed;
+            //this.gameObject.transform.Rotate(Vector3.right * (angle * 2));
+
+            this.gameObject.transform.Rotate(Vector3.forward * 90);
+            //this.gameObject.transform.Rotate(new Vector3(0, 0, 1) * (angle * 2));
+        } else if (word == "Right")
+        {
+            direction = "Right";
+            //Debug.Log(this.gameObject.name + " INNNNNNN  In In");
+            //this.gameObject.transform.position = this.gameObject.transform.position + Vector3.right * speed;
+            //this.gameObject.transform.Rotate(Vector3.right, angle * 1);
+            //this.gameObject.transform.Rotate(Vector3.right, 90);
+            this.gameObject.transform.Rotate(Vector3.forward * 90);
+
+        } else if (word == "Down")
+        {
+            direction = "Down";
+            //Debug.Log(this.gameObject.name + " INNNNNNN  In In");
+            //this.gameObject.transform.position = this.gameObject.transform.position + Vector3.down * speed;
+            //this.gameObject.transform.Rotate(Vector3.right, angle * 3);
+            //this.gameObject.transform.Rotate(Vector3.forward * 90);
+
+        } else
+        {
+            direction = "Left";
+            //Debug.Log(this.gameObject.name + " INNNNNNN  In In");
+            //this.gameObject.transform.position = this.gameObject.transform.position + Vector3.left * speed;
+            //this.gameObject.transform.Rotate(Vector3.right, angle * 0);
+            this.gameObject.transform.Rotate(Vector3.forward * -90);
+
+        }
+        //this.gameObject.transform.Rotate(Vector3.right, 90);
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name + " Bye Bye ");
@@ -83,6 +124,14 @@ public class Convey : MonoBehaviour
         other.gameObject.transform.position = center;
 
 
+    }
+
+    void mover(GameObject thingy)
+    {
+
+        float step = 0.5f * Time.deltaTime;
+        Vector2 tempSpot = new Vector2(4.5f, 4.5f);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, tempSpot, step);
     }
 
 
