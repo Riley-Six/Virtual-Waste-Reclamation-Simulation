@@ -146,8 +146,8 @@ MonoBehaviour:
   - {fileID: 2928333310754106627, guid: 1c82e2823bcc0b94a91abb96acd4fa74, type: 3}
   - {fileID: 1893062211362074267, guid: e259a964149d8534fa18fe1a3a067641, type: 3}
   spawnValue: {x: 0, y: 0, z: 0}
-  spawnWait: 0
-  spawnMaxWait: 3
-  spawnMinWait: 1
-  startWait: 5
+  spawnWait: 1
+  startWait: 1
   stop: 0
+  randTrash: 0
+  counterTrash: 30

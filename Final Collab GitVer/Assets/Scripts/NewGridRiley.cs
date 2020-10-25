@@ -14,15 +14,31 @@ public class NewGridRiley : MonoBehaviour
     public GameObject blankSpace;
     public GameObject StartTile;
     public GameObject Sorter;
-    public GameObject Dump;
+    public GameObject trashDump;
+    public GameObject recycleDump;
+
+    public string mode;
     private int newCounter = 0;
+
+    public int binCost;
+    public int conveyCost;
+    public int sortCost;
     //private GameObject<List<List>> gridCoordinates;
-    public List<List<GameObject>> mainGrid;
+    //public List<List<GameObject>> mainGrid;
 
     // Start is called before the first frame update
+
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
     void Start()
     {
         GenerateGrid();
+    }
+
+    void modeSetter(string inModeSet)
+    {
+        mode = inModeSet;
     }
 
     private void GenerateGrid()
@@ -37,14 +53,15 @@ public class NewGridRiley : MonoBehaviour
                 if ((runnerX == -collems) && (runnerY == -rows)) {
                     tile = (GameObject)Instantiate(StartTile, transform);
                 }
+                /*
                 else if ((runnerX == collems-1) && runnerY == rows/-2)
                 {
-                    tile = (GameObject)Instantiate(Dump, transform);
+                    tile = (GameObject)Instantiate(recycleDump, transform);
                 }
                 else if ((runnerX == collems-1) && runnerY == rows/2)
                 {
-                    tile = (GameObject)Instantiate(Dump, transform);
-                }
+                    tile = (GameObject)Instantiate(trashDump, transform);
+                }*/
                 else
                 {
                     tile = (GameObject)Instantiate(blankSpace, transform);
@@ -59,6 +76,12 @@ public class NewGridRiley : MonoBehaviour
             }
         }
     }
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+
+
+
     // Update is called once per frame
     void Update()
     {
@@ -67,168 +90,265 @@ public class NewGridRiley : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-
-            if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+            if (mode == "convey")
             {
-                print(hit.collider.name);
-                //conveyRotate();
-                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
-                StartCoroutine(conveyRotate());
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                //newTile.name = "Convey (" + newCounter + ")";
-                //newTile.Direction("Up");
-                newTile.name = "Convey (Up)" + newCounter;
-                GameObject.Find(newTile.name).SendMessage("Direction", "Up");
-                //newTile.name = "newTile";
-                newCounter++;
-                newTile.transform.position = center;
-                GameObject.Find(newTile.name).SendMessage("Direction", "Up");
-
-                //conveyRotate();
-                /*
-                if (Input.GetKeyUp(KeyCode.W))
+                if (hit && hit.collider.gameObject.name.Contains("tempTile"))
                 {
-                    newTile.transform.Rotate(Vector3.forward * 90 * Random.Range(0, 4));
+                    GameObject.Find("Money").SendMessage("Earned", conveyCost);
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                    newTile.name = "Convey (Up)" + newCounter;
+                    GameObject.Find(newTile.name).SendMessage("Direction", "Up");
+                    newCounter++;
+                    newTile.transform.position = center;
+                    GameObject.Find(newTile.name).SendMessage("Direction", "Up");
                 }
-                */
-                //newTile.transform.Rotate(Vector3.forward*90*Random.Range(0, 4));
-            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Up)")){
-                print(hit.collider.name);
-                //conveyRotate();
-                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
-                StartCoroutine(conveyRotate());
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                //newTile.name = "Convey (" + newCounter + ")";
-                //newTile.Direction("Up");
-                newTile.name = "Convey (Right)" + newCounter;
-                //GameObject.Find(newTile.name).SendMessage("Direction", "Right");
-                //newTile.name = "newTile";
-                newCounter++;
-                newTile.transform.position = center;
-                GameObject.Find(newTile.name).SendMessage("Direction", "Right");
+                else if (hit && hit.collider.gameObject.name.Contains("Convey (Up)"))
+                {
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                    newTile.name = "Convey (Right)" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                    GameObject.Find(newTile.name).SendMessage("Direction", "Right");
+                }
+                else if (hit && hit.collider.gameObject.name.Contains("Convey (Right)"))
+                {
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                    newTile.name = "Convey (Down)" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                    GameObject.Find(newTile.name).SendMessage("Direction", "Down");
+                }
+                else if (hit && hit.collider.gameObject.name.Contains("Convey (Down)"))
+                {
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+                    newTile.name = "Convey (Left)" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                    GameObject.Find(newTile.name).SendMessage("Direction", "Left");
 
 
-            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Right)"))
+                }
+                else if (hit && hit.collider.gameObject.name.Contains("Convey (Left)"))
+                {
+                    print(hit.collider.name);
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
+                    newTile.name = "tempTile";
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
+
+
+
+
+            }
+            else if (mode == "sort")
             {
-                print(hit.collider.name);
-                //conveyRotate();
-                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
-                StartCoroutine(conveyRotate());
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                //newTile.name = "Convey (" + newCounter + ")";
-                //newTile.Direction("Up");
-                newTile.name = "Convey (Down)" + newCounter;
-                //GameObject.Find(newTile.name).SendMessage("Direction", "Down");
-                //newTile.name = "newTile";
-                newCounter++;
-                newTile.transform.position = center;
-                GameObject.Find(newTile.name).SendMessage("Direction", "Down");
+                if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+                {
+                    GameObject.Find("Money").SendMessage("Earned", sortCost);
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(Sorter, transform);
+                    newTile.name = "Sorter" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                } 
+                else if (hit && hit.collider.gameObject.name.Contains("Sorter"))
+                {
+                    print(hit.collider.name);
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
+                    newTile.name = "tempTile";
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
 
 
-            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Down)"))
+
+
+            }
+            else if (mode == "trash")
             {
-                print(hit.collider.name);
-                //conveyRotate();
-                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
-                StartCoroutine(conveyRotate());
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
-                //newTile.name = "Convey (" + newCounter + ")";
-                //newTile.Direction("Up");
-                newTile.name = "Convey (Left)" + newCounter;
-                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
-                //newTile.name = "newTile";
-                newCounter++;
-                newTile.transform.position = center;
-                GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+                if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+                {
+                    GameObject.Find("Money").SendMessage("Earned", binCost);
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(trashDump, transform);
+                    newTile.name = "trashDump" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
+                else if (hit && hit.collider.gameObject.name.Contains("trashDump"))
+                {
+                    print(hit.collider.name);
 
-
-            } else if (hit && hit.collider.gameObject.name.Contains("Convey (Left)"))
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
+                    newTile.name = "tempTile";
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
+            }
+            else if (mode == "recycling")
             {
-                print(hit.collider.name);
-                //conveyRotate();
-                //while (!Input.GetKeyDown(KeyCode.Return)) yield;
-                StartCoroutine(conveyRotate());
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(Sorter, transform);
-                //newTile.name = "Convey (" + newCounter + ")";
-                //newTile.Direction("Up");
-                newTile.name = "Sorter" + newCounter;
-                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
-                //newTile.name = "newTile";
-                newCounter++;
-                newTile.transform.position = center;
-                //GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+                if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+                {
+                    GameObject.Find("Money").SendMessage("Earned", binCost);
+                    print(hit.collider.name);
+                    //StartCoroutine(conveyRotate());
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(recycleDump, transform);
+                    newTile.name = "recycleDump" + newCounter;
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
+                else if (hit && hit.collider.gameObject.name.Contains("recycleDump"))
+                {
+                    print(hit.collider.name);
+
+                    Vector3 center = hit.collider.gameObject.transform.position;
+                    Destroy(hit.collider.gameObject);
+                    GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
+                    newTile.name = "tempTile";
+                    newCounter++;
+                    newTile.transform.position = center;
+                }
+            }
+
+            //--------------------------------------------------------------------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------------------------------------------------------
+
+            /*
+        if (hit && hit.collider.gameObject.name.Contains("tempTile"))
+        {
+            print(hit.collider.name);
+
+            //StartCoroutine(conveyRotate());
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+
+            newTile.name = "Convey (Up)" + newCounter;
+            GameObject.Find(newTile.name).SendMessage("Direction", "Up");
+
+            newCounter++;
+            newTile.transform.position = center;
+            GameObject.Find(newTile.name).SendMessage("Direction", "Up");
+
+        } else if (hit && hit.collider.gameObject.name.Contains("Convey (Up)")){
+            print(hit.collider.name);
+
+            //StartCoroutine(conveyRotate());
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+
+            newTile.name = "Convey (Right)" + newCounter;
+
+            newCounter++;
+            newTile.transform.position = center;
+            GameObject.Find(newTile.name).SendMessage("Direction", "Right");
 
 
-            } else if (hit && hit.collider.gameObject.name.Contains("Sorter"))
-            {
-                print(hit.collider.name);
+        } else if (hit && hit.collider.gameObject.name.Contains("Convey (Right)"))
+        {
+            print(hit.collider.name);
 
-                Vector3 center = hit.collider.gameObject.transform.position;
-                Destroy(hit.collider.gameObject);
-                GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
-                newTile.name = "tempTile";
-                newCounter++;
-                newTile.transform.position = center;
+            //StartCoroutine(conveyRotate());
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
 
-            } 
+            newTile.name = "Convey (Down)" + newCounter;
+            //GameObject.Find(newTile.name).SendMessage("Direction", "Down");
+            //newTile.name = "newTile";
+            newCounter++;
+            newTile.transform.position = center;
+            GameObject.Find(newTile.name).SendMessage("Direction", "Down");
 
 
-            
+        } else if (hit && hit.collider.gameObject.name.Contains("Convey (Down)"))
+        {
+            print(hit.collider.name);
+
+            //StartCoroutine(conveyRotate());
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(tileTexture, transform);
+
+            newTile.name = "Convey (Left)" + newCounter;
+
+            newCounter++;
+            newTile.transform.position = center;
+            GameObject.Find(newTile.name).SendMessage("Direction", "Left");
+
+
+        } else if (hit && hit.collider.gameObject.name.Contains("Convey (Left)"))
+        {
+            print(hit.collider.name);
+
+            //StartCoroutine(conveyRotate());
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(Sorter, transform);
+
+            newTile.name = "Sorter" + newCounter;
+
+            newCounter++;
+            newTile.transform.position = center;
+
+
+        } else if (hit && hit.collider.gameObject.name.Contains("Sorter"))
+        {
+            print(hit.collider.name);
+
+            Vector3 center = hit.collider.gameObject.transform.position;
+            Destroy(hit.collider.gameObject);
+            GameObject newTile = (GameObject)Instantiate(blankSpace, transform);
+            newTile.name = "tempTile";
+            newCounter++;
+            newTile.transform.position = center;
+
+        } */
+
+
+
         }
     }
 
-    IEnumerator conveyRotate()
+    void placer(string mode)
     {
-        
-        while (!Input.GetKeyDown(KeyCode.Space))
-        {
 
-            yield return null;
-        }
-        /*
-        for (; ; )
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                //gameController.minusQuestion‌​Score();
-                break;
-            }
-            else if (Input.GetKeyDown(KeyCode.B))
-            {
-                //gameController.addQuestionSc‌​ore();
-                break;
-            }
-            yield return null;
-        }*/
-
-        //yield return new WaitForSeconds(10);
-        /*bool done = false;
-        while (!done) // essentially a "while true", but with a bool to break out naturally
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                done = true; // breaks the loop
-            }
-            yield return null; // wait until next frame, then continue execution from here (loop continues)
-        }*/
-        /*
-        while (!Input.GetKeyDown(KeyCode.Space))
-        {
-            yield return null;
-        }
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));*/
-        Debug.Log("Hello?");
     }
+
+    
 
 
 }

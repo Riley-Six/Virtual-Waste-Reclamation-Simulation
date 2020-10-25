@@ -6,7 +6,7 @@ using UnityEngine;
 public class Money : MonoBehaviour
 {
     public TextMeshProUGUI money;
-    private int funds = 100;
+    public int funds = 100;
     // Start is called before the first frame update
     void Start()
     {

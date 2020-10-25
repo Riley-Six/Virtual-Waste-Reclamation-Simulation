@@ -6,15 +6,20 @@ using UnityEngine;
 public class TrashInfo : MonoBehaviour
 {
     public TextMeshProUGUI trash;
-    private int counter = 27;
+    private int counter;
     // Start is called before the first frame update
     void Start()
     {
         trash.text = "Trash Left: ";
     }
-    public void Start(int amount){
+    public void StartAmount(int amount){
         counter = amount;
         trash.text = "Trash Left: " + counter;
+    }
+
+    public void setTrashNum(int numTrash)
+    {
+        //counter = numTrash;
     }
 
     public void Spawned(){

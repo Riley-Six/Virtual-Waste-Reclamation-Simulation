@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public TextMeshProUGUI health;
-    private int counter = 10;
+    public int counter = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +16,14 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health.text = counter.ToString("D2");
+        if(counter <= 0)
+        {
+            health.text = "x_x";
+        } else
+        {
+            health.text = counter.ToString("D2");
+        }
+        
     }
 
     public void LoseHealth(){

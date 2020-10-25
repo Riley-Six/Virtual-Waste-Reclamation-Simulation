@@ -32,9 +32,9 @@ public class ButtonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        convInfo = "Cost: $10\nThe Conveyer moves trash.";
-        splitInfo = "Cost: $50\nThe splitter sorts trash";
-        binInfo = "Cost: $20\nThe bin takes care of trash, recycling, and nature.";
+        convInfo = "Cost: $2\nThe Conveyer moves trash.";
+        splitInfo = "Cost: $15\nRecyling goes UP, Trash goes DOWN";
+        binInfo = "Cost: $10\nBlue for Recyling, Green for Trash.";
         infoComponent = info.GetComponent<Info>();
         phaseComponent = info.GetComponentInChildren<Phase>();
         trashComponent = info.GetComponentInChildren<TrashInfo>();
@@ -44,26 +44,30 @@ public class ButtonManager : MonoBehaviour
     public void convClick(){
         infoComponent.changeInfo(convInfo, Color.cyan);
         infoComponent.changeSprite(convSprite);
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Conveyer");
+        GameObject.Find("Grid Manager").SendMessage("modeSetter", "convey");
 
     }
     public void splitClick(){
         infoComponent.changeInfo(splitInfo, Color.black);
         infoComponent.changeSprite(splitSprite);
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Splitter");
+        GameObject.Find("Grid Manager").SendMessage("modeSetter", "sort");
     }
 
     public void binClick(){
         infoComponent.changeInfo(binInfo, Color.yellow);
         infoComponent.changeSprite(binSprite);
+        //GameObject.Find("Grid Manager").SendMessage("modeSetter", "trash");
         bComponent.Activate();
         
     }
 
     public void FinishClick(){
-        trashComponent.Start(25);
+        //trashComponent.StartGame(25);
         phaseComponent.SwitchPhase();
         trivia.GetComponent<Trivia>().Activate(1);
+
+        GameObject.Find("BigS(Clone)").SendMessage("StartTheGame");
+
         finish.SetActive(false);
     }
 
@@ -73,8 +77,14 @@ public class ButtonManager : MonoBehaviour
 
     public void RecycleClick()
     {
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Recycle");
+        GameObject.Find("Grid Manager").SendMessage("modeSetter", "recycling");
         //bComponent.SetType("Recycle");
+        bComponent.DeActivate();
+    }
+    public void TrashClick()
+    {
+        //bComponent.SetType("Trash");    
+        GameObject.Find("Grid Manager").SendMessage("modeSetter", "trash");
         bComponent.DeActivate();
     }
 
@@ -102,12 +112,8 @@ public class ButtonManager : MonoBehaviour
         bComponent.SetType("Aluminum");
         bComponent.DeActivate();
     }
-    public void TrashClick()
-    {
-        //bComponent.SetType("Trash");    
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SetSpawn("Trash");
-        bComponent.DeActivate();
-    }
+    //-------
+    
     public void GlassClick()
     { 
         bComponent.SetType("Glass");
